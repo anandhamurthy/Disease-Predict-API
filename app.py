@@ -46,11 +46,12 @@ def maize():
     filename = werkzeug.utils.secure_filename(imagefile.filename)
     print("\nReceived image File name : " + imagefile.filename)
     imagefile.save(filename)
-    test_image = image.load_img(filename, target_size=(224, 224))
-    test_image = image.img_to_array(test_image)
+    test_image = Image.open(filename)
+    test_image=test_image.resize((224,224))
+    test_image = np.asarray(test_image)
     test_image = test_image / 255
     test_image = np.expand_dims(test_image, axis=0)
-    loaded_model = models.load_model('maize.h5')
+    loaded_model = models.load_model('maize.h5',,custom_objects=None, compile=True)
     result = loaded_model.predict(test_image)
     return getMaizeDetails(np.argmax(result))
 
