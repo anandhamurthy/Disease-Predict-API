@@ -51,7 +51,7 @@ def maize():
     test_image = np.asarray(test_image)
     test_image = test_image / 255
     test_image = np.expand_dims(test_image, axis=0)
-    loaded_model = models.load_model('maize.h5',,custom_objects=None, compile=True)
+    loaded_model = models.load_model('maize.h5',custom_objects=None, compile=True)
     result = loaded_model.predict(test_image)
     return getMaizeDetails(np.argmax(result))
 
