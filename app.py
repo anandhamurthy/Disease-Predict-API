@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-import pickle
 import werkzeug
 import flask
 from tensorflow.keras import models
