@@ -3,7 +3,7 @@ import werkzeug
 import flask
 from tensorflow.keras import models
 import numpy as np
-from tensorflow.keras.preprocessing import image
+from PIL import Image
 
 app = Flask(__name__)
 
@@ -31,8 +31,9 @@ def rice():
     filename = werkzeug.utils.secure_filename(imagefile.filename)
     print("\nReceived image File name : " + imagefile.filename)
     imagefile.save(filename)
-    test_image = image.load_img(filename, target_size=(224, 224))
-    test_image = image.img_to_array(test_image)
+    test_image = Image.open(filename)
+    test_image=test_image.resize((224,224))
+    test_image = np.asarray(test_image)
     test_image = test_image / 255
     test_image = np.expand_dims(test_image, axis=0)
     loaded_model = models.load_model('rice.h5')
